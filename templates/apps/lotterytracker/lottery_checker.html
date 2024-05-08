@@ -1,0 +1,87 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block title %} Lottery Checker {% endblock title %}
+{% block pagetitle %}
+{% include "partials/page-title.html" with pagetitle="Lottery Tracker" title="Lottery Checker" %}
+{% endblock pagetitle %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <form id="checkform" method="get" action="{% url 'apps:check_lottery' %}">
+            <fieldset>
+                <h5>Enter your ticket:</h5>
+                <div class="grid grid-cols-1 gap-5 xl:grid-cols-3">
+                    <div>
+                        <label for="red_1" class="form-label">Red 1</label>
+                        <input type="number" name="red_1" id="red_1" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" style="width:30%" min="1" max="33" required>
+                    </div>
+                    <div>
+                        <label for="red_2" class="form-label">Red 2</label>
+                        <input type="number" name="red_2" id="red_2" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" style="width:30%" min="1" max="33" required>
+                    </div>
+                    <div>
+                        <label for="red_3" class="form-label">Red 3</label>
+                        <input type="number" name="red_3" id="red_3" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" style="width:30%" min="1" max="33" required>
+                    </div>
+                    <div>
+                        <label for="red_4" class="form-label">Red 4</label>
+                        <input type="number" name="red_4" id="red_4" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" style="width:30%" min="1" max="33" required>
+                    </div>
+                    <div>
+                        <label for="red_5" class="form-label">Red 5</label>
+                        <input type="number" name="red_5" id="red_5" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" style="width:30%" min="1" max="33" required>
+                    </div>
+                    <div>
+                        <label for="red_6" class="form-label">Red 6</label>
+                        <input type="number" name="red_6" id="red_6" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" style="width:30%" min="1" max="33" required>
+                    </div>
+                    <div>
+                        <label for="blue_1" class="form-label">Blue</label>
+                        <input type="number" name="blue_1" id="blue_1" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" style="width:30%" min="1" max="16" required>
+                    </div>
+            </fieldset>
+            <fieldset>
+                <h5>Enter the draw ticket:</h5>
+                <div class="grid grid-cols-1 gap-5 xl:grid-cols-3">
+                    <div>
+                        <label for="draw_red_1" class="form-label">Red 1</label>
+                        <input type="number" name="draw_red_1" id="draw_red_1" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" style="width:30%" min="1" max="33" required>
+                    </div>
+                    <div>
+                        <label for="draw_red_2" class="form-label">Red 2</label>
+                        <input type="number" name="draw_red_2" id="draw_red_2" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" style="width:30%" min="1" max="33" required>
+                    </div>
+                    <div>
+                        <label for="draw_red_3" class="form-label">Red 3</label>
+                        <input type="number" name="draw_red_3" id="draw_red_3" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" style="width:30%" min="1" max="33" required>
+                    </div>
+                    <div>
+                        <label for="draw_red_4" class="form-label">Red 4</label>
+                        <input type="number" name="draw_red_4" id="draw_red_4" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" style="width:30%" min="1" max="33" required>
+                    </div>
+                    <div>
+                        <label for="draw_red_5" class="form-label">Red 5</label>
+                        <input type="number" name="draw_red_5" id="draw_red_5" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" style="width:30%" min="1" max="33" required>
+                    </div>
+                    <div>
+                        <label for="draw_red_6" class="form-label">Red 6</label>
+                        <input type="number" name="draw_red_6" id="draw_red_6" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" style="width:30%" min="1" max="33" required>
+                    </div>
+                    <div>
+                        <label for="draw_blue_1" class="form-label">Blue</label>
+                        <input type="number" name="draw_blue_1" id="draw_blue_1" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" style="width:30%" min="1" max="16" required>
+                    </div>
+                </div>
+            </fieldset>
+            <div class="flex justify-left">
+                <button type="submit" class="py-2 px-4 text-xs text-white bg-custom-500 border-custom-500 btn hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20">Check</button>
+                <a href="{% url 'apps:check_lottery' %}" class="py-2 px-4 text-xs text-white bg-custom-500 border-custom-500 btn hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20">Reset</a>
+            </div>
+        </form>
+        <a class="text-xl text-custom-500 hover:text-custom-600 dark:text-custom-400 dark:hover:text-custom-300">{{winning}}</a>
+    </div>
+</div>
+
+
+{% endblock content %}

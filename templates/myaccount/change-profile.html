@@ -1,0 +1,43 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block title %} Change Profile {% endblock title %}
+
+{% block pagetitle %}
+{% include "partials/page-title.html" with pagetitle="My Account" title="Change Profile" %}
+{% endblock pagetitle %}
+
+{% block content %}
+<div class="mt-1 -ml-3 -mr-3 rounded-none card">
+    <div class="card-body">
+        <form id="changeProfileForm" action="{% url 'myaccount:profile_update' %}" method="POST">
+            {% csrf_token %}
+            <div class="grid grid-cols-1 gap-5">
+                <div>
+                    <label for="nickname" class="form-label">Nickname</label>
+                    <input type="text" name="nickname" id="nickname" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" style="width:30%" value="{{user.nickname}}" required>
+                </div>
+                <div>
+                    <label for="first_name" class="form-label">First Name</label>
+                    <input type="text" name="first_name" id="first_name" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" style="width:30%" value="{{user.first_name}}" required>
+                </div>
+                <div>
+                    <label for="last_name" class="form-label">Last Name</label>
+                    <input type="text" name="last_name" id="last_name" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" style="width:30%" value="{{user.last_name}}" required>
+                </div>
+                <div>
+                    <label for="telephone" class="form-label">Phone Number</label>
+                    <input type="text" name="telephone" id="telephone" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" style="width:30%" value="{{user.telephone}}" required>
+                </div>
+                <div>
+                    <label for="lotteryType" class="form-label">Lottery Type</label>
+                    <input type="text" name="lotteryType" id="lotteryType" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" style="width:30%" value="{{user.lottery_type}}" required>
+                </div>
+                <div class="flex justify-left">
+                    <button type="submit" class="py-2 px-4 text-xs text-white bg-custom-500 border-custom-500 btn hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20">Update Profile</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div><!--end card-->
+{% endblock content %}

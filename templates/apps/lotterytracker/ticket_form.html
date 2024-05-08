@@ -1,0 +1,73 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block title %} Add Lottery {% endblock title %}
+{% block pagetitle %}
+{% include "partials/page-title.html" with pagetitle="Lottery Tracker" title="Add Lottery" %}
+{% endblock pagetitle %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        <form id="lotteryForm" action="{% url 'apps:ticket_add' %}" method="POST">
+            {% csrf_token %}
+            <div class="grid grid-cols-1 gap-5 xl:grid-cols-3">
+                <div>
+                    <label for="red_1" class="form-label">Red 1</label>
+                    <!-- Make the input box clearer -->
+                    <input type="number" name="red_1" id="red_1" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" style="width:30%" placeholder="red_1" min="1" max="33" required>
+                </div>
+                <div>
+                    <label for="red_2" class="form-label">Red 2</label>
+                    <input type="number" name="red_2" id="red_2" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" style="width:30%" placeholder="red_2" min="1" max="33" required>
+                </div>
+                <div>
+                    <label for="red_3" class="form-label">Red 3</label>
+                    <input type="number" name="red_3" id="red_3" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" style="width:30%" placeholder="red_3" min="1" max="33" required>
+                </div>
+                <div>
+                    <label for="red_4" class="form-label">Red 4</label>
+                    <input type="number" name="red_4" id="red_4" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" style="width:30%" placeholder="red_4" min="1" max="33" required>
+                </div>
+                <div>
+                    <label for="red_5" class="form-label">Red 5</label>
+                    <input type="number" name="red_5" id="red_5" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" style="width:30%" placeholder="red_5" min="1" max="33" required>
+                </div>
+                <div>
+                    <label for="red_6" class="form-label">Red 6</label>
+                    <input type="number" name="red_6" id="red_6" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" style="width:30%" placeholder="red_6" min="1" max="33" required>
+                </div>
+                <div>
+                    <label for="blue_1" class="form-label">Blue</label>
+                    <input type="number" name="blue_1" id="blue_1" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" style="width:30%" placeholder="blue_1" min="1" max="16" required>
+                </div>
+                <div>
+                    <label for="purchase_date" class="form-label">Date of purchase</label>
+                    <input type="date" name="purchase_date" id="purchase_date" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" style="width:30%" required>
+                </div>
+                <div>
+                    <label for="price" class="form-label">Price</label>
+                    <input type="number" name="price" id="price" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" style="width:30%" placeholder="¥0" min="0" required>
+                </div>
+                <div>
+                    <label for="won_amount" class="form-label">Earnings</label>
+                    <input type="number" name="won_amount" id="won_amount" class="form-input border-slate-200 dark:border-zink-500 focus:outline-none focus:border-custom-500 disabled:bg-slate-100 dark:disabled:bg-zink-600 disabled:border-slate-300 dark:disabled:border-zink-500 dark:disabled:text-zink-200 disabled:text-slate-500 dark:text-zink-100 dark:bg-zink-700 dark:focus:border-custom-800 placeholder:text-slate-400 dark:placeholder:text-zink-200" placeholder="¥0" style="width:30%" required>
+                </div>
+            </div>
+            <div class="flex justify-end">
+                <button type="submit" class="py-2 px-4 text-xs text-white bg-custom-500 border-custom-500 btn hover:text-white hover:bg-custom-600 hover:border-custom-600 focus:text-white focus:bg-custom-600 focus:border-custom-600 focus:ring focus:ring-custom-100 active:text-white active:bg-custom-600 active:border-custom-600 active:ring active:ring-custom-100 dark:ring-custom-400/20">Add Lottery</button>
+            </div>
+        </form>
+
+        <!-- A small js script to ensure there is no repetition from red_1 to red_6 -->
+        <script>
+            document.getElementById('lotteryForm').addEventListener('submit', function(event) {
+                let reds = Array.from(document.querySelectorAll('input[name^="red_"]')).map(input => input.value);
+                if (new Set(reds).size !== reds.length) {
+                    alert('Red numbers can not have duplicates!');
+                    event.preventDefault();
+                }
+            })
+        </script>
+    </div>
+</div>
+{% endblock content %}

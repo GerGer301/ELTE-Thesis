@@ -1,0 +1,34 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block title %} Calendar Month Grid {% endblock title %}
+{% block pagetitle %}
+{% include "partials/page-title.html" with pagetitle="Lottery Tracker" title="Calendar" %}
+{% endblock pagetitle %}
+
+{% block content %}
+<div class="grid grid-cols-1 gap-x-5 xl:grid-cols-12">
+    <div class="xl:col-span-12">
+        <div class="card">
+            <div class="card-body">
+                <p class="text-center text-red-500 dark:text-custom-500">Every Tuesday, Thursday and Sunday is the Draw Day !</p>
+            </div>
+        </div>
+    </div><!--end col-->
+</div><!--end grid-->
+<div class="grid grid-cols-1 gap-x-5 xl:grid-cols-12">
+    <div class="xl:col-span-12">
+        <div class="card">
+            <div class="card-body">
+                <button type="hidden" id="calendarBtn" data-modal-target="event-modal"></button>
+                <div id='calendar'></div>
+            </div>
+        </div>
+    </div><!--end col-->
+</div><!--end grid-->
+{% endblock content %}
+
+{% block extra_js %}
+<!-- calendar min js -->
+<script src="{% static 'libs/fullcalendar/index.global.min.js' %}"></script>
+<script src="{% static 'js/pages/apps-calendar-month-grid.init.js' %}"></script>
+{% endblock extra_js %}

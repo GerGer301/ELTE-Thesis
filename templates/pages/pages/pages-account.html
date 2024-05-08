@@ -1,0 +1,107 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+{% block title %} Account {% endblock title %}
+
+
+{% block content %}
+<div class="mt-1 -ml-3 -mr-3 rounded-none card">
+    <div class="card-body !px-2.5">
+        <div class="grid grid-cols-1 gap-5 lg:grid-cols-12 2xl:grid-cols-12">
+            <div class="lg:col-span-2 2xl:col-span-1">
+                <div class="relative inline-block size-20 rounded-full shadow-md bg-slate-100 profile-user xl:size-28">
+                    <img src="{% static 'images/users/avatar-1.png' %}" alt="" class="object-cover border-0 rounded-full img-thumbnail user-profile-image">
+                    <div class="absolute bottom-0 flex items-center justify-center size-8 rounded-full ltr:right-0 rtl:left-0 profile-photo-edit">
+                        <input id="profile-img-file-input" type="file" class="hidden profile-img-file-input">
+                        <label for="profile-img-file-input" class="flex items-center justify-center size-8 bg-white rounded-full shadow-lg cursor-pointer dark:bg-zink-600 profile-photo-edit">
+                            <i data-lucide="image-plus" class="size-4 text-slate-500 dark:text-zink-200 fill-slate-100 dark:fill-zink-500"></i>
+                        </label>
+                    </div>
+                </div>
+            </div><!--end col-->
+            <div class="lg:col-span-10 2xl:col-span-9">
+                <h5 class="mb-1">{{user.nickname}} <i data-lucide="badge-check" class="inline-block size-4 text-sky-500 fill-sky-100 dark:fill-custom-500/20"></i></h5>
+                <div class="flex gap-3 mb-4">
+                    <p class="text-slate-500 dark:text-zink-200"><i data-lucide="mail" class="inline-block size-4 ltr:mr-1 rtl:ml-1 text-slate-500 dark:text-zink-200 fill-slate-100 dark:fill-zink-500"></i> {{user.email}}</p>
+                </div>
+                
+                <p class="mt-4 text-slate-500 dark:text-zink-200">
+                    This is the account page of the LotteryTracker. You can view your lottery summary, winnings, and other account information here.
+                </p>
+            </div>
+            
+        </div><!--end grid-->
+    </div>
+    <div class="card-body !px-2.5 !py-0">
+        <ul class="flex flex-wrap w-full text-sm font-medium text-center nav-tabs">
+            <li class="group active">
+                <a href="javascript:void(0);" data-tab-toggle data-target="overviewTabs" class="inline-block px-4 py-2 text-base transition-all duration-300 ease-linear rounded-t-md text-slate-500 dark:text-zink-200 border-b border-transparent group-[.active]:text-custom-500 dark:group-[.active]:text-custom-500 group-[.active]:border-b-custom-500 dark:group-[.active]:border-b-custom-500 hover:text-custom-500 dark:hover:text-custom-500 active:text-custom-500 dark:active:text-custom-500 -mb-[1px]">Overview</a>
+            </li>
+            <li class="group">
+                <a href="javascript:void(0);" data-tab-toggle data-target="statisticsTabs" class="inline-block px-4 py-2 text-base transition-all duration-300 ease-linear rounded-t-md text-slate-500 dark:text-zink-200 border-b border-transparent group-[.active]:text-custom-500 dark:group-[.active]:text-custom-500 group-[.active]:border-b-custom-500 dark:group-[.active]:border-b-custom-500 hover:text-custom-500 dark:hover:text-custom-500 active:text-custom-500 dark:active:text-custom-500 -mb-[1px]">Statistics</a>
+            </li>
+        </ul>
+    </div>
+</div><!--end card-->
+
+<div class="tab-content">
+    <div class="block tab-pane" id="overviewTabs">
+        <div class="grid grid-cols-1 gap-x-5 2xl:grid-cols-12">
+            
+            <div class="2xl:col-span-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="mb-4 text-15">Personal Information</h6>
+                        <div class="overflow-x-auto">
+                            <table class="w-full ltr:text-left rtl:ext-right">
+                                <tbody>
+                                    <tr>
+                                        <th class="py-2 font-semibold ps-0" scope="row">Username</th>
+                                        <td class="py-2 text-right text-slate-500 dark:text-zink-200">{{user.nickname}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="py-2 font-semibold ps-0" scope="row">Email</th>
+                                        <td class="py-2 text-right text-slate-500 dark:text-zink-200">{{user.email}}</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="pt-2 font-semibold ps-0" scope="row">Joining Date</th>
+                                        <td class="pt-2 text-right text-slate-500 dark:text-zink-200">{{user.date_joined}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div><!--end card-->
+            </div><!--end col-->
+        </div><!--end grid-->
+    </div><!--end tab pane-->
+    <div class="hidden tab-pane" id="statisticsTabs">
+        <div class="grid grid-cols-1 gap-x-5 2xl:grid-cols-12">
+            <div class="2xl:col-span-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="mb-4 text-15">Statistics</h6>
+                        <div class="overflow-x-auto">
+                            <table class="w-full ltr:text-left rtl:ext-right">
+                                <tbody>
+                                    <tr>
+                                        <th class="py-2 font-semibold ps-0" scope="row">Total Lotteries Played</th>
+                                        <td class="py-2 text-right text-slate-500 dark:text-zink-200">0</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="py-2 font-semibold ps-0" scope="row">Total Lotteries Won</th>
+                                        <td class="py-2 text-right text-slate-500 dark:text-zink-200">0</td>
+                                    </tr>
+                                    <tr>
+                                        <th class="pt-2 font-semibold ps-0" scope="row">Total Winnings</th>
+                                        <td class="pt-2 text-right text-slate-500 dark:text-zink-200">$0.00</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div><!--end card-->
+            </div><!--end col-->
+        </div><!--end grid-->
+    </div><!--end tab pane-->
+</div><!--end tab content-->
+{% endblock content %}

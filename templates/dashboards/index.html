@@ -1,0 +1,373 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block title %} Analytics {% endblock title %}
+{% block pagetitle %}
+{% include "partials/page-title.html" with pagetitle="Dashboard" title="Analytics" %}
+{% endblock pagetitle %}
+
+{% block content %}
+<!-- Display a division if the value of total_earning is too small -->
+{% if total_earning < -1000 %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <div class="flex items center justify-between">
+            <div class="flex items center gap-2">
+                <i data-lucide="alert-circle" class="size-4 text-yellow-500"></i>
+                <div>
+                    <h6 class="text-yellow-500">Kind Advice:</h6>
+                    <p class="text-slate-500 dark:text-slate-200">You have lost too much on lotteries. Please buy tickets wisely!</p>
+                </div>
+            </div>
+            <button type="button" class="flex items-center justify-center size-[30px] p-0 bg-white text-slate-500 btn hover:text-slate-500 hover:bg-slate-100 focus:text-slate-500 focus:bg-slate-100 active:text-slate-500 active:bg-slate-100 dark:bg-zink-700 dark:hover:bg-slate-500/10 dark:focus:bg-slate-500/10 dark:active:bg-slate-500/10 dropdown-toggle" id="userDeviceDropdown" data-bs-toggle="dropdown">
+                <i data-lucide="more-vertical" class="inline-block size-4"></i> 
+            </button>
+        </div>
+    </div>
+{% endif %}
+<div class="grid grid-cols-12 gap-x-5">
+    <div class="order-1 md:col-span-6 lg:col-span-3 col-span-12 2xl:order-1 bg-green-100 dark:bg-green-500/20 card 2xl:col-span-3 group-data-[skin=bordered]:border-green-500/20 relative overflow-hidden">
+        <div class="card-body">
+            <i data-lucide="hash" class="absolute top-0 size-32 stroke-1 text-green-200/50 dark:text-green-500/20 ltr:-right-10 rtl:-left-10"></i>
+            <div class="flex items-center justify-center size-12 bg-green-500 rounded-md text-15 text-green-50">
+                <i data-lucide="hash"></i>
+            </div>
+            <h5 class="mt-5 mb-2"><span class="counter-value" data-target="{{total_tickets}}">{{total_tickets}}</span></h5>
+            <p class="text-slate-500 dark:text-slate-200">Lottery Count</p>
+        </div>
+    </div><!--end col-->
+    <div class="order-2 md:col-span-6 lg:col-span-3 col-span-12 2xl:order-1 bg-orange-100 dark:bg-orange-500/20 card 2xl:col-span-3 group-data-[skin=bordered]:border-orange-500/20 relative overflow-hidden">
+        <div class="card-body">
+            <i data-lucide="receipt" class="absolute top-0 size-32 stroke-1 text-orange-200/50 dark:text-orange-500/20 ltr:-right-10 rtl:-left-10"></i>
+            <div class="flex items-center justify-center size-12 bg-orange-500 rounded-md text-15 text-orange-50">
+                <i data-lucide="receipt"></i>
+            </div>
+            <h5 class="mt-5 mb-2">¥<span class="counter-value" data-target="{{total_spending}}">{{total_spending}}</span></h5>
+            <p class="text-slate-500 dark:text-slate-200">Total Spending</p>
+        </div>
+    </div><!--end col-->
+    <div class="order-3 md:col-span-6 lg:col-span-3 col-span-12 2xl:order-1 bg-sky-100 dark:bg-sky-500/20 card 2xl:col-span-3 group-data-[skin=bordered]:border-sky-500/20 relative overflow-hidden">
+        <div class="card-body">
+            <i data-lucide="trophy" class="absolute top-0 size-32 stroke-1 text-sky-200/50 dark:text-sky-500/20 ltr:-right-10 rtl:-left-10"></i>
+            <div class="flex items-center justify-center size-12 rounded-md bg-sky-500 text-15 text-sky-50">
+                <i data-lucide="trophy"></i>
+            </div>
+            <h5 class="mt-5 mb-2">¥<span class="counter-value" data-target="{{total_winning}}">{{total_winning}}</span></h5>
+            <p class="text-slate-500 dark:text-slate-200">Total Winning</p>
+        </div>
+    </div><!--end col-->
+    <div class="order-4 md:col-span-6 lg:col-span-3 col-span-12 2xl:order-1 bg-purple-100 dark:bg-purple-500/20 card 2xl:col-span-3 group-data-[skin=bordered]:border-purple-500/20 relative overflow-hidden">
+        <div class="card-body">
+            <i data-lucide="kanban" class="absolute top-0 size-32 stroke-1 text-purple-200/50 dark:text-purple-500/20 ltr:-right-10 rtl:-left-10"></i>
+            <div class="flex items-center justify-center size-12 bg-purple-500 rounded-md text-15 text-purple-50">
+                <i data-lucide="users"></i>
+            </div>
+            <h5 class="mt-5 mb-2">¥<span class="counter-value" data-target="{{total_earning}}">{{total_earning}}</span></h5>
+            <p class="text-slate-500 dark:text-slate-200">Total Earning</p>
+        </div>
+    </div><!--end col-->
+    <div class="order-5 col-span-12 2xl:order-1 card 2xl:row-span-2 2xl:col-span-12">
+        <div class="card-body">
+            <div class="flex items-center gap-2 mb-3">
+                <h6 class="text-15 grow">Top 9 Frequent Red Balls Last Year</h6>
+            </div>
+            <div id="mostFrequentNumbers" class="apex-charts" data-chart-colors='["bg-red-500"]' dir="ltr"></div>
+            <div id="chartdiv"></div>
+        </div>
+    </div><!--end col-->
+    <div class="order-6 col-span-12 2xl:order-1 card 2xl:col-span-12">
+        <div class="card-body">
+            <div class="flex items-center gap-2">
+                <h6 class="mb-3 text-15 grow">Top 5 Frequent Blue Balls Last Year</h6>
+            </div>
+            <div id="mostFrequentBlue" class="apex-charts" data-chart-colors='["bg-custom-500"]' dir="ltr"></div>
+        </div>
+    </div><!--end col-->
+    <div class="order-7 col-span-12 2xl:order-1 card 2xl:col-span-12">
+        <div class="card-body">
+            <div class="flex items-center gap-2 mb-3">
+                <h6 class="text-15 grow">Predictions <a href="#!" data-tooltip="default" data-tooltip-content="Analyst or business user discovering a pattern in data or a relationship between variables" class="inline-block align-middle ltr:ml-1 rtl:mr-1 text-slate-500 dark:text-zink-200"></a></h6>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full whitespace-nowrap" id="predictions">
+                    <tbody>
+                        <tr>
+                            <!--Show the number in a small red ball for red numbers-->
+                            <td class="px-3.5 py-2.5 border-b border-slate-200 dark:border-zink-500 ltr:text-left rtl:text-right">
+                                <span class="inline-flex items-center justify-center w-6 h-6 text-xs font-semibold text-white bg-red-500 rounded-full">{{ output1.red_1 }}</span>
+                            </td>
+                            <td class="px-3.5 py-2.5 border-b border-slate-200 dark:border-zink-500 ltr:text-left rtl:text-right">
+                                <span class="inline-flex items-center justify-center w-6 h-6 text-xs font-semibold text-white bg-red-500 rounded-full">{{ output1.red_2 }}</span>
+                            </td>
+                            <td class="px-3.5 py-2.5 border-b border-slate-200 dark:border-zink-500 ltr:text-left rtl:text-right">
+                                <span class="inline-flex items-center justify-center w-6 h-6 text-xs font-semibold text-white bg-red-500 rounded-full">{{ output1.red_3 }}</span>
+                            </td>
+                            <td class="px-3.5 py-2.5 border-b border-slate-200 dark:border-zink-500 ltr:text-left rtl:text-right">
+                                <span class="inline-flex items-center justify-center w-6 h-6 text-xs font-semibold text-white bg-red-500 rounded-full">{{ output1.red_4 }}</span>
+                            </td>
+                            <td class="px-3.5 py-2.5 border-b border-slate-200 dark:border-zink-500 ltr:text-left rtl:text-right">
+                                <span class="inline-flex items-center justify-center w-6 h-6 text-xs font-semibold text-white bg-red-500 rounded-full">{{ output1.red_5 }}</span>
+                            </td>
+                            <td class="px-3.5 py-2.5 border-b border-slate-200 dark:border-zink-500 ltr:text-left rtl:text-right">
+                                <span class="inline-flex items-center justify-center w-6 h-6 text-xs font-semibold text-white bg-red-500 rounded-full">{{ output1.red_6 }}</span>
+                            </td>
+                            <!--Show the number in a small blue ball for blue numbers-->
+                            <td class="px-3.5 py-2.5 border-b border-slate-200 dark:border-zink-500 ltr:text-left rtl:text-right">
+                                <span class="inline-flex items-center justify-center w-6 h-6 text-xs font-semibold text-white bg-custom-500 rounded-full">{{ output1.blue_1 }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <!--Show the number in a small red ball for red numbers-->
+                            <td class="px-3.5 py-2.5 border-b border-slate-200 dark:border-zink-500 ltr:text-left rtl:text-right">
+                                <span class="inline-flex items-center justify-center w-6 h-6 text-xs font-semibold text-white bg-red-500 rounded-full">{{ output2.red_1 }}</span>
+                            </td>
+                            <td class="px-3.5 py-2.5 border-b border-slate-200 dark:border-zink-500 ltr:text-left rtl:text-right">
+                                <span class="inline-flex items-center justify-center w-6 h-6 text-xs font-semibold text-white bg-red-500 rounded-full">{{ output2.red_2 }}</span>
+                            </td>
+                            <td class="px-3.5 py-2.5 border-b border-slate-200 dark:border-zink-500 ltr:text-left rtl:text-right">
+                                <span class="inline-flex items-center justify-center w-6 h-6 text-xs font-semibold text-white bg-red-500 rounded-full">{{ output2.red_3 }}</span>
+                            </td>
+                            <td class="px-3.5 py-2.5 border-b border-slate-200 dark:border-zink-500 ltr:text-left rtl:text-right">
+                                <span class="inline-flex items-center justify-center w-6 h-6 text-xs font-semibold text-white bg-red-500 rounded-full">{{ output2.red_4 }}</span>
+                            </td>
+                            <td class="px-3.5 py-2.5 border-b border-slate-200 dark:border-zink-500 ltr:text-left rtl:text-right">
+                                <span class="inline-flex items-center justify-center w-6 h-6 text-xs font-semibold text-white bg-red-500 rounded-full">{{ output2.red_5 }}</span>
+                            </td>
+                            <td class="px-3.5 py-2.5 border-b border-slate-200 dark:border-zink-500 ltr:text-left rtl:text-right">
+                                <span class="inline-flex items-center justify-center w-6 h-6 text-xs font-semibold text-white bg-red-500 rounded-full">{{ output2.red_6 }}</span>
+                            </td>
+                            <!--Show the number in a small blue ball for blue numbers-->
+                            <td class="px-3.5 py-2.5 border-b border-slate-200 dark:border-zink-500 ltr:text-left rtl:text-right">
+                                <span class="inline-flex items-center justify-center w-6 h-6 text-xs font-semibold text-white bg-custom-500 rounded-full">{{ output2.blue_1 }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <!--Show the number in a small red ball for red numbers-->
+                            <td class="px-3.5 py-2.5 border-b border-slate-200 dark:border-zink-500 ltr:text-left rtl:text-right">
+                                <span class="inline-flex items-center justify-center w-6 h-6 text-xs font-semibold text-white bg-red-500 rounded-full">{{ output3.red_1 }}</span>
+                            </td>
+                            <td class="px-3.5 py-2.5 border-b border-slate-200 dark:border-zink-500 ltr:text-left rtl:text-right">
+                                <span class="inline-flex items-center justify-center w-6 h-6 text-xs font-semibold text-white bg-red-500 rounded-full">{{ output3.red_2 }}</span>
+                            </td>
+                            <td class="px-3.5 py-2.5 border-b border-slate-200 dark:border-zink-500 ltr:text-left rtl:text-right">
+                                <span class="inline-flex items-center justify-center w-6 h-6 text-xs font-semibold text-white bg-red-500 rounded-full">{{ output3.red_3 }}</span>
+                            </td>
+                            <td class="px-3.5 py-2.5 border-b border-slate-200 dark:border-zink-500 ltr:text-left rtl:text-right">
+                                <span class="inline-flex items-center justify-center w-6 h-6 text-xs font-semibold text-white bg-red-500 rounded-full">{{ output3.red_4 }}</span>
+                            </td>
+                            <td class="px-3.5 py-2.5 border-b border-slate-200 dark:border-zink-500 ltr:text-left rtl:text-right">
+                                <span class="inline-flex items-center justify-center w-6 h-6 text-xs font-semibold text-white bg-red-500 rounded-full">{{ output3.red_5 }}</span>
+                            </td>
+                            <td class="px-3.5 py-2.5 border-b border-slate-200 dark:border-zink-500 ltr:text-left rtl:text-right">
+                                <span class="inline-flex items-center justify-center w-6 h-6 text-xs font-semibold text-white bg-red-500 rounded-full">{{ output3.red_6 }}</span>
+                            </td>
+                            <!--Show the number in a small blue ball for blue numbers-->
+                            <td class="px-3.5 py-2.5 border-b border-slate-200 dark:border-zink-500 ltr:text-left rtl:text-right">
+                                <span class="inline-flex items-center justify-center w-6 h-6 text-xs font-semibold text-white bg-custom-500 rounded-full">{{ output3.blue_1 }}</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div><!--end col-->
+</div>
+{% endblock content %}
+
+{% block extra_js %}
+<!--apexchart js-->
+<script src="{% static 'libs/apexcharts/apexcharts.min.js' %}"></script>
+
+<script>
+    // rgb to hex convert
+function rgbToHex(rgb) {
+    // Extract RGB values using regular expressions
+    const rgbValues = rgb.match(/\d+/g);
+
+    if (rgbValues.length === 3) {
+        var [r, g, b] = rgbValues.map(Number);
+    }
+    // Ensure the values are within the valid range (0-255)
+    r = Math.max(0, Math.min(255, r));
+    g = Math.max(0, Math.min(255, g));
+    b = Math.max(0, Math.min(255, b));
+
+    // Convert each component to its hexadecimal representation
+    const rHex = r.toString(16).padStart(2, '0');
+    const gHex = g.toString(16).padStart(2, '0');
+    const bHex = b.toString(16).padStart(2, '0');
+
+    // Combine the hexadecimal values with the "#" prefix
+    const hexColor = `#${rHex}${gHex}${bHex}`;
+
+    return hexColor.toUpperCase(); // Convert to uppercase for consistency
+}
+
+// common function to get charts colors from class
+function getChartColorsArray(chartId) {
+    const chartElement = document.getElementById(chartId);
+    if (chartElement) {
+        const colors = chartElement.dataset.chartColors;
+        if (colors) {
+            const parsedColors = JSON.parse(colors);
+            const mappedColors = parsedColors.map((value) => {
+                const newValue = value.replace(/\s/g, "");
+                if (!newValue.includes("#")) {
+                    const element = document.querySelector(newValue);
+                    if (element) {
+                        const styles = window.getComputedStyle(element);
+                        const backgroundColor = styles.backgroundColor;
+                        return backgroundColor || newValue;
+                    } else {
+                        const divElement = document.createElement('div');
+                        divElement.className = newValue;
+                        document.body.appendChild(divElement);
+
+                        const styles = window.getComputedStyle(divElement);
+                        const backgroundColor = styles.backgroundColor.includes("#") ? styles.backgroundColor : rgbToHex(styles.backgroundColor);
+                        return backgroundColor || newValue;
+                    }
+                } else {
+                    return newValue;
+                }
+            });
+            return mappedColors;
+        } else {
+            console.warn(`chart-colors attribute not found on: ${chartId}`);
+        }
+    }
+}
+
+let blueNumberOccurences = JSON.parse('{{ blue_number_occurences | safe }}');
+// loop through the object and get the keys and values
+let blueNumberOccurencesValues = Object.values(blueNumberOccurences);
+// Sort the values in descending order
+blueNumberOccurencesValues.sort((a, b) => b - a);
+// Get the keys of the sorted values
+let blueNumberOccurencesKeys = Object.keys(blueNumberOccurences).sort((a, b) => blueNumberOccurences[b] - blueNumberOccurences[a]);
+// Most frequent blue balls
+var options = {
+    series: [{
+        name: "Most Frequent Blue Balls Last Year",
+        data: [
+            {
+                x: blueNumberOccurencesKeys[0],
+                y: blueNumberOccurencesValues[0]
+            },
+            {
+                x: blueNumberOccurencesKeys[1],
+                y: blueNumberOccurencesValues[1]
+            },
+            {
+                x: blueNumberOccurencesKeys[2],
+                y: blueNumberOccurencesValues[2]
+            },
+            {
+                x: blueNumberOccurencesKeys[3],
+                y: blueNumberOccurencesValues[3]
+            },
+            {
+                x: blueNumberOccurencesKeys[4],
+                y: blueNumberOccurencesValues[4]
+            }
+        ]
+    }],
+    chart: {
+        height: 350,
+        type: 'bar',
+    },
+    plotOptions: {
+        bar: {
+            horizontal: true,
+            isFunnel:true,
+        },
+    },
+    dataLabels: {
+          enabled: true,
+          formatter: function (val, opt) {
+            return 'Blue Ball Number ' + opt.w.globals.labels[opt.dataPointIndex] + ':  ' + val
+          },
+          dropShadow: {
+            enabled: true,
+          },
+        },
+    colors: getChartColorsArray("mostFrequentBlue"),
+};
+var chart = new ApexCharts(document.querySelector("#mostFrequentBlue"), options);
+chart.render();
+
+
+let redNumberOccurences = JSON.parse('{{ red_number_occurences | safe }}');
+// loop through the object and get the keys and values
+let redNumberOccurencesValues = Object.values(redNumberOccurences);
+// Sort the values in descending order
+redNumberOccurencesValues.sort((a, b) => b - a);
+// Get the keys of the sorted values
+let redNumberOccurencesKeys = Object.keys(redNumberOccurences).sort((a, b) => redNumberOccurences[b] - redNumberOccurences[a]);
+//Most frequent red balls
+var options = {
+    series: [
+        {
+            data: [
+                {
+                    x: redNumberOccurencesKeys[0],
+                    y: redNumberOccurencesValues[0]
+                },
+                {
+                    x: redNumberOccurencesKeys[1],
+                    y: redNumberOccurencesValues[1]
+                },
+                {
+                    x: redNumberOccurencesKeys[2],
+                    y: redNumberOccurencesValues[2]
+                },
+                {
+                    x: redNumberOccurencesKeys[3],
+                    y: redNumberOccurencesValues[3]
+                },
+                {
+                    x: redNumberOccurencesKeys[4],
+                    y: redNumberOccurencesValues[4]
+                },
+                {
+                    x: redNumberOccurencesKeys[5],
+                    y: redNumberOccurencesValues[5]
+                },
+                {
+                    x: redNumberOccurencesKeys[6],
+                    y: redNumberOccurencesValues[6]
+                },
+                {
+                    x: redNumberOccurencesKeys[7],
+                    y: redNumberOccurencesValues[7]
+                },
+                {
+                    x: redNumberOccurencesKeys[8],
+                    y: redNumberOccurencesValues[8]
+                }
+            ]
+        }
+    ],
+    legend: {
+        show: false
+    },
+    chart: {
+        height: 270,
+        type: 'treemap',
+        toolbar: {
+            show: false,
+        }
+    },
+    grid: {
+        show: false,
+        padding: {
+            top: -15,
+            bottom: 0,
+            right: -20
+        },
+    },
+    colors: getChartColorsArray("mostFrequentNumbers"),
+};
+var chart = new ApexCharts(document.querySelector("#mostFrequentNumbers"), options);
+chart.render();
+</script>
+{% endblock extra_js %}
